@@ -32,7 +32,12 @@ $CPAN::Config = {
   'scan_cache' => q[atstart],
   'show_upload_date' => q[0],
   'term_ornaments' => q[1],
-  'urllist' => [q[http://cpan.mirror.facebook.net/], q[http://cpan.msi.umn.edu/], q[http://mirrors.servercentral.net/CPAN/], q[http://www.perl.com/CPAN/]],
+  'urllist' => [
+    q[http://cpan.mirror.facebook.net/],
+    q[http://cpan.msi.umn.edu/],
+    q[http://mirrors.servercentral.net/CPAN/],
+    q[http://www.perl.com/CPAN/]
+  ],
   'use_sqlite' => q[0],
 };
 1;
