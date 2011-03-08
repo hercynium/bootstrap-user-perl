@@ -1,9 +1,12 @@
 
-# install a cpan config if missing
-if [[ ! -f ~/.cpan/CPAN/MyConfig.pm ]]; then
+# set to where you want your local::lib to be set up
+PERL_LOCAL_LIB_DIR=$HOME/perl5
+
+# install a cpan config if missing (some modules require it, inc. cpanminus)
+if [[ ! -f $HOME/.cpan/CPAN/MyConfig.pm ]]; then
     echo "Writing a new CPAN config..."
-    mkdir -p ~/.cpan/CPAN
-    cat <<'END_TXT' > ~/.cpan/CPAN/MyConfig.pm
+    mkdir -p $HOME/.cpan/CPAN
+    cat <<'END_TXT' > $HOME/.cpan/CPAN/MyConfig.pm
 
 $CPAN::Config = {
   'auto_commit' => q[0],
@@ -48,12 +51,12 @@ fi
 function bootstrap-local-lib () {
     echo "Installing local::lib and cpanminus..."
     wget --no-check-certificate http://cpanmin.us -q -O - \
-      | perl - --local-lib=~/perl5 local::lib App::cpanminus
-    eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
+      | perl - --local-lib=$PERL_LOCAL_LIB_DIR local::lib App::cpanminus
+    eval $(perl -I$PERL_LOCAL_LIB_DIR/lib/perl5 -Mlocal::lib)
 }
 
 # set up local::lib & bootstrap if necessary
 eval $(perl -Mlocal::lib 2>/dev/null || echo false) \
-  || eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib 2>/dev/null || echo false) \
+  || eval $(perl -I$PERL_LOCAL_LIB_DIR/lib/perl5 -Mlocal::lib 2>/dev/null || echo false) \
   || bootstrap-local-lib
 
